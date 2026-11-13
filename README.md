@@ -1,6 +1,20 @@
-*This project has been created as part of the 42 curriculum by npillet.*
+<div align="center">
+    <h1>Push-Swap</h1>
+    <h3>Because Swap_push doesn't feel as natural</h3>
+    <i>This project has been created as part of the 42 curriculum by npillet.</i>
+</div>
 
-# Description
+## Table of Contents
+- [Description](#description)
+    - [Operations](#operations)
+- [Instructions](#instructions)
+- [Thought process](#thought-process)
+    - [1. The Parsing and Error Management](#1-the-parsing-and-error-management)
+    - [2. Small Stack Sort](#2-small-stack-sort)
+    - [3. The Algorithm](#3-the-algorithm)
+- [Resources](#resources)
+
+## Description
 The goal of this project is to sort a list of integers in ascending order and display the shortest sequence of operations needed.
 
 For the maximum project validation (100%) and eligibility for bonuses, it is required to:
@@ -13,11 +27,13 @@ For the minimal project validation (minimum 80%), it is required to either:
 - Sort 100 numbers in under 700 operations and 500 numbers in under 11500 operations
 - Sort 100 numbers in under 1300 operations and 500 numbers in under 5500 operations
 
-
-## The operations
+### Operations
 We start with two stacks **a** and **b**:
 - Stack **a** contains a random series of numbers, negative and positive alike.
 - Stack **b** is empty.
+
+<br>
+
 We have to sort the numbers in stack **a** in ascending order. The following operations will help us achieve it:
 - *sa (swap a)*: Swaps the first 2 elements at the top of stack **a**.
 Does nothing if there is only one element or none.
@@ -33,13 +49,11 @@ The first element becomes the last one.
 - *rb (rotate b)*: Shift up all the elements of stack **b** by 1.
 The first element becomes the last one.
 - *rr*: Does **ra** and **rb** at the same time.
-- *rra (reverse rotate a)*: Shift down all the elements of stack **a** by 1.
-The last element becomes the first one.
-- *rrb (reverse rotate b)*: Shift down all the elements of stack **b** by 1.
-The last element becomes the first one.
+- *rra (reverse rotate a)*: Shift down all the elements of stack **a** by 1. The last element becomes the first one.
+- *rrb (reverse rotate b)*: Shift down all the elements of stack **b** by 1. The last element becomes the first one.
 - *rrr*: Does **rra** and **rrb** at the same time.
 
-# Instructions
+## Instructions
 Firstly, compile the files used in the project by using:
 ```bash
 make
@@ -59,8 +73,8 @@ or
 ```
 It can be any random series of numbers.
 
-# Thought process
-## 1- The Parsing and Error Management
+## Thought process
+### &emsp;1. The Parsing and Error Management
 The program will start by filling our **stack_a** by checking what kind of input it is and if it is correct. The filling process is similar in the case of a simple argument or a string as an argument. The string will be split to analyze every number inside it.
 For both cases, we will verify if:
 - There are only numbers *(with or without the + or - sign)*
@@ -71,17 +85,17 @@ Once every argument is added to the stack, the program will check if there's a n
 When everything is done, we check if the stack is already sorted, in which case we free the list and stop the program. Otherwise, we continue with the sorting.
 
 
-## 2- Small Stack Sort
+### &emsp;2. Small Stack Sort
 We calculate the size of the stack first to better sort it.
 With a stack of two, a simple swap is enough.
 
-### Stack of Three
+#### Stack of Three
 With a stack of three, the function *sort_three* is used.
 We sort the stack in ascending order with a minimal number of operations by comparing in which position the value is. There are only five possibilities to handle here.
 - A combination of **sa** and **ra** or **rra** is needed when the first number is either the maximum or the minimum and the second is bigger than the third.
 - Else, a single action is needed to correctly and efficiently sort the stack.
 
-### Stack of Four
+#### Stack of Four
 With a stack of four, the function *sort_four* is used.
 We sort the stack in ascending order with a minimal number of operations by:
 - Finding the position of the minimum value and pushing it in **stack_b**
@@ -89,7 +103,7 @@ We sort the stack in ascending order with a minimal number of operations by:
 - Searching the correct position the pushed value needs to be taken by moving **stack_a** around
 - Pushing the value back in **stack_a** and applying the necessary operations to place **stack_a**'s values back correctly.
 
-### Stack of Five
+#### Stack of Five
 With a stack of five, the function *sort_five* is used.
 We sort the stack in ascending order with a minimal number of operations by:
 - Pushing the first two values in **stack_b** and putting them in descending order
@@ -98,33 +112,44 @@ We sort the stack in ascending order with a minimal number of operations by:
 - Pushing the value back in **stack_a** and repeating the process with the second value in **stack_b**
 - Applying the necessary operations to place **stack_a**'s values back correctly.
 
-
-## 3- The Algorithm
+### &emsp;3. The Algorithm
 The one used here is the Turk algorithm. It consists of calculating the cost of moving a number from one stack to another and putting it in the desired position. That way, the stack will be sorted with a minimum number of actions done.
 
-### Pushing A to B
+#### Pushing A to B
 A list grouping every number in a stack is created to calculate each cost. That way, we can easily access the cheapest number to move.
 That way, a function will push the cheapest in **stack_b** in descending order until just three numbers remain in **stack_a**. We check if it's already sorted; if not, we sort it.
 
-### Pushing B to A
+#### Pushing B to A
 To push everything back in **stack_a** in ascending order, we:
 - Search the correct position the first value in **stack_b** needs to take by moving **stack_a** around
 - Push the value back in **stack_a** and repeat the process with the second value in **stack_b**
 - Apply the necessary operations to place **stack_a**'s values back correctly.
 Just like the end of the *sort_five* function.
 
+## Resources
+### Notions
+#### Parsing
+- [Parsing in C](https://openclassrooms.com/forum/sujet/le-parsing-en-c)
 
-# Resources
-[TurkAlgorithm](https://medium.com/@ayogun/push-swap-c1f5d2d41e97)
+- [Introduction to Parsers](https://www.geeksforgeeks.org/compiler-design/introduction-of-parsing-ambiguity-and-parsers-set-1/)
 
-[Parsing](https://openclassrooms.com/forum/sujet/le-parsing-en-c)
+#### Algorithm
+- [push_swap find best algorithm](https://medium.com/@ayogun/push-swap-c1f5d2d41e97)
 
-[Parsing_v2](https://www.geeksforgeeks.org/compiler-design/introduction-of-parsing-ambiguity-and-parsers-set-1/)
+- [push_swap algorithm](https://github.com/Akadil/42project_push_swap/tree/main/srcs/part2)
 
-[Cost](https://github.com/Akadil/42project_push_swap/tree/main/srcs/part2)
+#### Visualizer and tests
+- [Visualizer](https://github.com/o-reo/push_swap_visualizer)
 
-[Tests](https://github.com/alizealebaron/push_swap/blob/main/todoom_list.md)
+- [Tests](https://github.com/alizealebaron/push_swap/blob/main/todoom_list.md)
 
-[Visualizer](https://github.com/o-reo/push_swap_visualizer)
+### GitHub:
+- [naha7777](https://github.com/naha7777/Push_Swap)
 
-[naha7777](https://github.com/naha7777/Push_Swap)
+<br>
+<hr>
+<br>
+
+<div align="center">
+    <img src="assets/footer.png" />
+</div>
